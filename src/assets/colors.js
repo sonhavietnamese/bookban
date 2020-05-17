@@ -1,0 +1,6 @@
+export const BLACK = "#000119"
+export const RED = "#e3001a"
+export const YELLOW = "#ffd032"
+export const LIGHT_GREY = "#efefef"
+export const WHITE = "#fff"
+export const DARK_GREY = "#b7b7b7"
