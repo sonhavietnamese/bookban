@@ -22,5 +22,10 @@ export const string = {
     yes: "Có",
     no: "Không",
     order: "Đơn hàng",
-    restaurant: " Nhà hàng"
+    restaurant: " Nhà hàng",
+    tableStatus: "Trạng thái bàn",
+    tableBooking: "Đơn đặt bàn",
+    bookingSuccess: "Đơn thành công",
+    bookingCancel: "Đơn đã huỷ",
+    foodOrder: "Đơn đặt món"
 }
