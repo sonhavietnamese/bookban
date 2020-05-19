@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Image, TouchableNativeFeedback } from "react-native"
+import Reinput from 'reinput';
 
 
 import { NavigationContainer } from '@react-navigation/native'
@@ -11,62 +12,92 @@ import {
 import { BLACK, RED, YELLOW, WHITE, DARK_GREY, LIGHT_GREY } from '../../assets/colors'
 import { string } from "../../assets/strings"
 
-class CustomerInfo extends Component {
+import Header from "../../components/Header"
+import InfoHeader from "../../components/InfoHeader"
+import DoneBtn from "../../components/DoneBtn";
+import Home from "./Home";
+
+class CustomerInfoScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            role: "NONE"
+            username: "",
+            userdes: ""
         }
     }
 
-    changeRole = (role) => {
-        this.setState({ role })
+    handleUsername = text => {
+        this.setState({ username: text });
+    }
+
+    handleUserdes = text => {
+        this.setState({ userdes: text });
     }
 
 
     render() {
-        const { role } = this.state
+        const { username, userdes } = this.state
         return (
-            <View style={{ flex: 1, backgroundColor: WHITE, justifyContent: "center", alignItems: "center" }}>
+            <View style={{ flex: 1, backgroundColor: WHITE }}>
 
-                <Text>  CustomerInfo </Text>
+                <InfoHeader first="Thông tin" second="của bạn" />
+
+                <Reinput
+                    style={styles.input}
+                    label={string.username}
+                    value={username}
+                    onChangeText={this.handleUsername}
+                    labelActiveColor={DARK_GREY}
+                    color={RED}
+                />
+
+                <Reinput
+                    style={styles.input}
+                    label={string.userdes}
+                    value={userdes}
+                    onChangeText={this.handleUserdes}
+                    labelActiveColor={DARK_GREY}
+                    color={RED}
+                    multiline
+                />
+
+                <DoneBtn onPress={() => this.props.navigation.navigate("CustomerHomeScreen")} />
+
 
             </View>
         )
     }
 }
 
+const Stack = createStackNavigator();
+
+function CustomerInfo() {
+    return (
+        // <NavigationContainer>
+        <Stack.Navigator
+            headerMode="none"
+            screenOptions={{
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            }}
+        >
+            <Stack.Screen name='CustomerInfoScreen' component={CustomerInfoScreen} />
+            <Stack.Screen name='CustomerHomeScreen' component={Home} />
+        </Stack.Navigator>
+        // {/* </NavigationContainer> */ }
+    )
+}
+
 const styles = StyleSheet.create({
-    centerText: {
-        flex: 1,
-        fontSize: 18,
-        padding: 32,
-        color: '#777'
+
+    input: {
+        marginTop: 15,
+        marginLeft: 60,
+        marginRight: 60,
+        fontFamily: 'QsBold'
     },
-    textBold: {
-        fontWeight: '500',
-        color: '#000'
-    },
-    buttonText: {
-        fontSize: 21,
-        color: 'rgb(0,122,255)'
-    },
-    roleBtnContainer: {
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    roleBtn: {
-        width: 120,
-        height: 120,
-        borderRadius: 100,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    roleText: {
-        fontFamily: "QsSemiBold",
-        fontSize: 16
-    }
 });
 
 

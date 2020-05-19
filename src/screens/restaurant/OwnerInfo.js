@@ -12,6 +12,9 @@ import {
     createStackNavigator,
     CardStyleInterpolators
 } from '@react-navigation/stack'
+import InfoHeader from "../../components/InfoHeader";
+
+
 
 class OwnerInfoScreen extends Component {
     constructor(props) {
@@ -43,10 +46,13 @@ class OwnerInfoScreen extends Component {
             }}>
 
 
-                <View style={styles.header}>
+
+                <InfoHeader first="Nhà hàng" second="của tôi" />
+
+                {/* <View style={styles.header}>
                     <Text style={{ fontFamily: "MB", fontSize: 27, color: YELLOW }} >Nhà hàng</Text>
                     <Text style={{ fontFamily: "MR", fontSize: 27, color: BLACK }} > của tôi.</Text>
-                </View>
+                </View> */}
 
 
                 <ScrollView style={{ flex: 1, marginBottom: 40 }}>

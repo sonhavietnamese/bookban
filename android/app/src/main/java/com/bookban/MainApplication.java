@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
+// import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

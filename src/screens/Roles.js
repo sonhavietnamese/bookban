@@ -14,6 +14,7 @@ import { BLACK, RED, YELLOW, WHITE, DARK_GREY, LIGHT_GREY } from '../assets/colo
 import { string } from "../assets/strings"
 import CustomerInfo from "./customer/CustomerInfo";
 import RestaurantRole from "./restaurant/RestaurantRole"
+import DoneBtn from "../components/DoneBtn";
 
 class RoleScreen extends Component {
     constructor(props) {
@@ -74,28 +75,9 @@ class RoleScreen extends Component {
                     <Text style={[styles.roleText, { color: role == "CUSTOMER" ? YELLOW : LIGHT_GREY }]} > {string.customerRole} </Text>
                 </View>
 
-
-                <TouchableOpacity
-                    style={{
-                        position: "absolute",
-                        bottom: 50,
-                        right: 0,
-                        height: 70,
-                        width: Dimensions.get("window").width / 2,
-                        backgroundColor: YELLOW,
-                        borderTopLeftRadius: 35,
-                        borderBottomLeftRadius: 35,
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}
-
-                    onPress={() =>
-                        role == "RESTAURANT" ? this.props.navigation.navigate("RestaurantRole") : this.props.navigation.navigate("CustomerInfoScreen")
-                        // this.props.navigation.navigate("RestaurantRole")
-                    }
-                >
-                    <Text style={{ fontFamily: "MSB", color: WHITE, fontSize: 20 }}> {string.done} </Text>
-                </TouchableOpacity>
+                <DoneBtn onPress={() =>
+                    role == "RESTAURANT" ? this.props.navigation.navigate("RestaurantRole") : this.props.navigation.navigate("CustomerInfoScreen")}
+                />
 
 
             </View>

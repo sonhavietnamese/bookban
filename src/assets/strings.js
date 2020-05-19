@@ -9,7 +9,7 @@ export const string = {
     deliveryRole: "Deliver",
     ownerRole: "Owner",
     yourRoleAtRestaurant: "Your role at Restaurant",
-    done: "Done",
+    done: "Xong",
     restaurantName: "Tên nhà hàng",
     restaurantDes: "Mô tả ngắn",
     address: "Địa chỉ",
@@ -27,5 +27,7 @@ export const string = {
     tableBooking: "Đơn đặt bàn",
     bookingSuccess: "Đơn thành công",
     bookingCancel: "Đơn đã huỷ",
-    foodOrder: "Đơn đặt món"
+    foodOrder: "Đơn đặt món",
+    username: "Tên người dùng",
+    userdes: "Giới thiệu ngắn"
 }

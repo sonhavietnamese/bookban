@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 import { RED, YELLOW } from '../assets/colors'
 
-export default function ChartInfo({ restaurantName, type }) {
+export default function Header({ restaurantName, type }) {
     return (
         <View style={styles.header}>
             <Text style={{ fontFamily: "MB", fontSize: 27, color: RED }} >{restaurantName}</Text>

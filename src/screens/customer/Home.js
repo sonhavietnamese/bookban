@@ -10,6 +10,8 @@ import {
 
 import { BLACK, RED, YELLOW, WHITE, DARK_GREY, LIGHT_GREY } from '../../assets/colors'
 import { string } from "../../assets/strings"
+import BottomTab from "../../components/BottomTab"
+import BookingScreen from "./BookingScreen"
 
 class Home extends Component {
     constructor(props) {
@@ -28,9 +30,42 @@ class Home extends Component {
     render() {
         const { role } = this.state
         return (
-            <View style={{ flex: 1, backgroundColor: WHITE, justifyContent: "center", alignItems: "center" }}>
+            <View style={{ flex: 1, backgroundColor: WHITE, }}>
 
-                <Text> Home Restaurant</Text>
+                <BottomTab bgNavBar={WHITE} bgNavBarSelector={RED} stroke={YELLOW}>
+                    <BottomTab.Item
+                        icon={require("../../assets/imgs/tab1.png")}
+                        selectedIcon={require("../../assets/imgs/tab1.png")}
+                        title="Tab1"
+                        screenBackgroundColor={{ backgroundColor: WHITE }
+                        }
+                    >
+                        <BookingScreen />
+                        {/* <Mapppp /> */}
+
+                    </BottomTab.Item >
+                    <BottomTab.Item
+                        icon={require("../../assets/imgs/tab2.png")}
+                        selectedIcon={require("../../assets/imgs/tab2.png")}
+                        title="Tab2"
+                    // screenBackgroundColor={{ backgroundColor: '#F08080' }}
+                    >
+                        <View>
+                            <Text>NGUYENSONHA</Text>
+                        </View>
+                    </BottomTab.Item>
+                    <BottomTab.Item
+                        icon={require("../../assets/imgs/tab2.png")}
+                        selectedIcon={require("../../assets/imgs/tab2.png")}
+                        title="Tab3"
+                        screenBackgroundColor={{ backgroundColor: WHITE }}
+                    >
+                        <View>
+                            {/*Page Content*/}
+                        </View>
+                    </BottomTab.Item>
+
+                </BottomTab >
 
             </View>
         )
