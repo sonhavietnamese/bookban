@@ -32,31 +32,21 @@ export default class ExploreScreen extends Component {
         super(props);
         this.state = {
             activeIndex: 0,
-            carouselItems: [
+            carouselImgs: [
                 {
-                    img: require("../../assets/imgs/1.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
+                    img: require("../../assets/imgs/g1.jpg"),
                 },
                 {
-                    img: require("../../assets/imgs/5.jpg"),
-                    title: "Pizaasd asd za",
-                    price: "12.000",
+                    img: require("../../assets/imgs/g2.jpg"),
                 },
                 {
-                    img: require("../../assets/imgs/3.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
+                    img: require("../../assets/imgs/g3.jpg"),
                 },
                 {
-                    img: require("../../assets/imgs/4.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
+                    img: require("../../assets/imgs/g4.png"),
                 },
                 {
-                    img: require("../../assets/imgs/5.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
+                    img: require("../../assets/imgs/g5.png"),
                 },
             ],
         }
@@ -110,13 +100,11 @@ export default class ExploreScreen extends Component {
                     <Carousel
                         layout={"tinder"}
                         ref={ref => this.carousel = ref}
-                        data={this.state.carouselItems}
+                        data={this.state.carouselImgs}
                         sliderWidth={Dimensions.get("window").width}
                         itemWidth={Dimensions.get("window").width - 40}
                         renderItem={this._renderViews}
                         onSnapToItem={index => this.setState({ activeIndex: index })} />
-
-
 
                 </View>
                 <View style={{ flexDirection: "row", marginLeft: 60, marginRight: 60, justifyContent: "space-between" }}>

@@ -45,7 +45,16 @@ class OwnerInfoScreen extends Component {
                 backgroundColor: WHITE
             }}>
 
-
+                <View style={{
+                    position: "absolute",
+                    zIndex: 0,
+                    backgroundColor: LIGHT_GREY,
+                    width: 500,
+                    height: 500,
+                    borderRadius: 250,
+                    right: -250,
+                    top: -250
+                }} />
 
                 <InfoHeader first="Nhà hàng" second="của tôi" />
 
@@ -206,28 +215,28 @@ class OwnerInfoScreen extends Component {
                         <ScrollView style={{ marginTop: 15, }} horizontal>
                             <FoodItem
                                 uri={require("../../assets/imgs/f1.jpg")}
-                                name="Pizza"
-                                price="12.000"
+                                name="Pizza phô mai"
+                                price="200.000"
                             />
                             <FoodItem
                                 uri={require("../../assets/imgs/f2.jpg")}
-                                name="asdasfasdfasdf"
-                                price="12.000"
+                                name="Pizza gà"
+                                price="150.000"
                             />
                             <FoodItem
                                 uri={require("../../assets/imgs/f3.jpg")}
-                                name="Pizza"
-                                price="12.000"
+                                name="Pizza bò"
+                                price="120.000"
                             />
                             <FoodItem
                                 uri={require("../../assets/imgs/f4.jpg")}
-                                name="Bánh mì bơ tỏi"
-                                price="999.000"
+                                name="Pizza bơ"
+                                price="125.000"
                             />
                             <FoodItem
                                 uri={require("../../assets/imgs/f5.jpg")}
-                                name="Pizza"
-                                price="12.000"
+                                name="Pizza dâu"
+                                price="120.000"
                             />
                         </ScrollView>
                     </View>

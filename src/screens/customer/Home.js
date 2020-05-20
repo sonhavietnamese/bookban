@@ -54,12 +54,12 @@ class Home extends Component {
                         <BookingScreen />
                     </BottomTab.Item>
                     <BottomTab.Item
-                        icon={require("../../assets/imgs/tab2.png")}
-                        selectedIcon={require("../../assets/imgs/tab2.png")}
+                        icon={require("../../assets/imgs/tab3.png")}
+                        selectedIcon={require("../../assets/imgs/tab3.png")}
                         title="Tab3"
                     >
                         <View>
-                            {/*Page Content*/}
+
                         </View>
                     </BottomTab.Item>
 

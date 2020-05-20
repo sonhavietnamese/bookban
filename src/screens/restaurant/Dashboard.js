@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native"
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Image, ScrollView, Modal, TouchableHighlight } from "react-native"
 
 
 import { BLACK, RED, YELLOW, WHITE, DARK_GREY, LIGHT_GREY } from '../../assets/colors'
@@ -10,17 +10,25 @@ import {
     LineChart,
 } from "react-native-chart-kit";
 import ChartInfo from "../../components/ChartInfo"
+import TableStatus from "./TableStatus"
 
 class Dashboard extends Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            modalVisible: false,
+        }
+    }
+
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
     }
 
     render() {
 
         const chartConfig = {
-            backgroundColor: WHITE,
+            backgroundColor: "transparent",
             backgroundGradientFrom: WHITE,
             backgroundGradientTo: WHITE,
             decimalPlaces: 0, // optional, defaults to 2dp
@@ -44,11 +52,13 @@ class Dashboard extends Component {
             Math.random() * 100
         ]
 
+        const { modalVisible } = this.state
+
 
         return (
             <View style={{ flex: 1, backgroundColor: WHITE }}>
 
-                <Header restaurantName="Biển lớn" type="Thông tin" />
+                <Header restaurantName="The Pizza" type="Thông tin" />
 
 
                 <TouchableOpacity style={styles.editBtn}>
@@ -63,13 +73,15 @@ class Dashboard extends Component {
                 </TouchableOpacity>
 
                 <ScrollView>
-                    <View style={styles.componentContainer}>
+                    <View style={[styles.componentContainer, { marginBottom: 10 }]}>
                         <Text style={styles.component}>{string.tableStatus}</Text>
-                        <TouchableOpacity style={styles.plusBtn}>
+                        {/* <TouchableOpacity style={styles.plusBtn} onPress={() => {
+                            this.setModalVisible(true);
+                        }} >
                             <Text style={styles.plus}>+</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
-
+                    <TableStatus />
 
                     <View style={{ marginLeft: 60, marginTop: 20 }}>
                         <Text style={styles.component}>{string.tableBooking}</Text>
@@ -79,18 +91,26 @@ class Dashboard extends Component {
                                 datasets: [
                                     {
                                         data: [
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100
+                                            4,
+                                            10,
+                                            50,
+                                            45,
+                                            78,
+                                            36,
+                                            45
                                         ],
                                         color: (opacity = 1) => `rgba(227, 0, 26, ${opacity})`,
                                     },
                                     {
-                                        data: data,
+                                        data: [
+                                            4,
+                                            2,
+                                            1,
+                                            20,
+                                            0,
+                                            1,
+                                            0
+                                        ],
                                         color: (opacity = 1) => `rgba(255, 208, 50, ${opacity})`,
                                     }
                                 ]
@@ -105,18 +125,18 @@ class Dashboard extends Component {
 
                         <ChartInfo
                             type="SUCCESS"
-                            number={20}
+                            number={268}
                         />
 
                         <ChartInfo
                             type="CANCEL"
-                            number={20}
+                            number={28}
                         />
 
                     </View>
 
 
-                    <View style={{ marginLeft: 60, marginTop: 20 }}>
+                    <View style={{ marginLeft: 60, marginTop: 20, marginBottom: 20 }}>
                         <Text style={styles.component}>{string.foodOrder}</Text>
                         <LineChart
                             data={{
@@ -124,18 +144,26 @@ class Dashboard extends Component {
                                 datasets: [
                                     {
                                         data: [
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100
+                                            6,
+                                            3,
+                                            14,
+                                            16,
+                                            15,
+                                            8,
+                                            8
                                         ],
                                         color: (opacity = 1) => `rgba(227, 0, 26, ${opacity})`,
                                     },
                                     {
-                                        data: data,
+                                        data: [
+                                            4,
+                                            7,
+                                            1,
+                                            10,
+                                            0,
+                                            1,
+                                            0
+                                        ],
                                         color: (opacity = 1) => `rgba(255, 208, 50, ${opacity})`,
                                     }
                                 ]
@@ -150,16 +178,51 @@ class Dashboard extends Component {
 
                         <ChartInfo
                             type="SUCCESS"
-                            number={20}
+                            number={74}
                         />
 
                         <ChartInfo
                             type="CANCEL"
-                            number={20}
+                            number={28}
                         />
 
                     </View>
                 </ScrollView>
+
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+
+                >
+                    <View style={{ flex: 1 }}>
+                        <View style={{ flex: 1 }}>
+
+                            <TouchableHighlight
+                                style={{
+                                    width: 30, height: 30,
+                                    backgroundColor: DARK_GREY,
+                                    justifyContent: "center",
+                                    alignItems: "center", borderRadius: 15,
+                                    position: "absolute",
+                                    right: 15,
+                                    top: 15,
+                                    zIndex: 2
+                                }}
+                                onPress={() => {
+                                    this.setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <Text style={styles.textStyle}>X</Text>
+                            </TouchableHighlight>
+
+                            <TableStatus />
+                            {/* <BookingModal /> */}
+
+
+                        </View>
+                    </View>
+                </Modal>
 
 
             </View>

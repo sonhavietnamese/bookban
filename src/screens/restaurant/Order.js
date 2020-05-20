@@ -78,8 +78,7 @@ class Order extends Component {
 
         return (
             <View style={{ flex: 1, backgroundColor: WHITE }}>
-                <Header restaurantName="Biển lớn" type="Đơn hàng" />
-
+                <Header restaurantName="The Pizza" type="Đơn hàng" />
 
                 <ScrollView >
 
@@ -129,22 +128,22 @@ class Order extends Component {
                                 <View style={{ flexDirection: "row", marginTop: 3 }}>
 
                                     <Image
-                                        source={require("../../assets/imgs/a1.jpg")}
+                                        source={require("../../assets/imgs/f1.jpg")}
                                         style={{ width: 40, height: 40, marginRight: 3, borderRadius: 5 }}
                                         resizeMode="cover"
                                     />
                                     <Image
-                                        source={require("../../assets/imgs/a2.jpg")}
+                                        source={require("../../assets/imgs/f2.jpg")}
                                         style={{ width: 40, height: 40, borderRadius: 5, marginRight: 3 }}
                                         resizeMode="cover"
                                     />
                                     <Image
-                                        source={require("../../assets/imgs/a3.jpg")}
+                                        source={require("../../assets/imgs/f3.jpg")}
                                         style={{ width: 40, height: 40, borderRadius: 5, marginRight: 3 }}
                                         resizeMode="cover"
                                     />
                                     <Image
-                                        source={require("../../assets/imgs/a4.jpg")}
+                                        source={require("../../assets/imgs/f4.jpg")}
                                         style={{ width: 40, height: 40, borderRadius: 5, marginRight: 3 }}
                                         resizeMode="cover"
                                     />

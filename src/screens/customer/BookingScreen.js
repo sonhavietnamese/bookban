@@ -22,10 +22,10 @@ import { WHITE, RED, LIGHT_GREY, DARK_GREY, YELLOW } from "../../assets/colors";
 import staticData from "./staticData";
 
 const Images = [
-    { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-    { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-    { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-    { uri: "https://i.imgur.com/Ka8kNST.jpg" }
+    { uri: "https://vcdn-kinhdoanh.vnecdn.net/2019/05/10/DSC1294-1-6462-1557483506.jpg" },
+    { uri: "https://images.foody.vn/res/g78/776631/prof/s576x330/foody-upload-api-foody-mobile-tch-jpg-180910161542.jpg" },
+    { uri: "https://danang.plus/wp-content/uploads/2019/08/nguyen-gia-trang.jpg" },
+    { uri: "https://media-cdn.tripadvisor.com/media/photo-s/11/85/82/d7/20171215-190519-largejpg.jpg" }
 ]
 
 const { width, height } = Dimensions.get("window");
@@ -38,51 +38,50 @@ export default class BookingScreen extends Component {
         markers: [
             {
                 coordinate: {
-                    latitude: 45.524548,
-                    longitude: -122.6749817,
+                    latitude: 16.0542709,
+                    longitude: 108.237581
                 },
-                title: "Best Place",
-                text: "This is the best place in Portland",
-                image: require("../../assets/imgs/f1.jpg"),
+                title: "The Pizza",
+                text: "The best Pizza you ever try!",
+                image: Images[0],
             },
             {
                 coordinate: {
-                    latitude: 45.524698,
-                    longitude: -122.6655507,
+                    latitude: 16.06069,
+                    longitude: 108.2196334
                 },
-                title: "Second Best Place",
-                text: "This is the second best place in Portland",
+                title: "The Coffee",
+                text: "The Coffee",
                 image: Images[1],
             },
             {
                 coordinate: {
-                    latitude: 45.5230786,
-                    longitude: -122.6701034,
+                    latitude: 15.9670339,
+                    longitude: 108.1942339
                 },
-                title: "Third Best Place",
-                text: "This is the third best place in Portland",
+                title: "Quán Nhậu Đồng Quê",
+                text: "Good food, cheap, beautiful waitres.",
                 image: Images[2],
             },
             {
                 coordinate: {
-                    latitude: 45.521016,
-                    longitude: -122.6561917,
+                    latitude: 15.8800223,
+                    longitude: 108.3245599
                 },
-                title: "Fourth Best Place",
-                text: "This is the fourth best place in Portland",
+                title: "Pizza Oi",
+                text: "This is the best pizza restaurant",
                 image: Images[3],
             },
         ],
         region: {
-            latitude: 45.52220671242907,
-            longitude: -122.6653281029795,
+            latitude: 15.9670453,
+            longitude: 108.2598977,
             latitudeDelta: 0.01,
             longitudeDelta: 0.01,
         },
         activeIndex: 0,
         modalVisible: false,
         search: "",
-
     };
 
     UNSAFE_componentWillMount() {
@@ -132,11 +131,10 @@ export default class BookingScreen extends Component {
                 <Text>{item.text}</Text>
             </View>)
     }
+
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     }
-
-
 
     render() {
         const { modalVisible } = this.state;
@@ -158,8 +156,6 @@ export default class BookingScreen extends Component {
             });
             return { scale, opacity };
         });
-
-
 
         return (
             <View style={styles.container}>
@@ -209,7 +205,6 @@ export default class BookingScreen extends Component {
                     </View>
                 </View>
 
-
                 <View style={{ width: Dimensions.get("window").width - 55, height: Dimensions.get("window").height - 80, marginTop: 10 }}>
                     <MapView
                         ref={map => this.map = map}
@@ -229,17 +224,11 @@ export default class BookingScreen extends Component {
                             };
                             return (
                                 <MapView.Marker key={index} coordinate={marker.coordinate}>
-                                    <Animated.View style={[styles.markerWrap, opacityStyle]}>
-                                        <Animated.View style={[styles.ring, scaleStyle]} />
-                                        <View style={styles.marker} />
-                                    </Animated.View>
                                 </MapView.Marker>
                             );
                         })}
                     </MapView>
                 </View>
-
-
 
                 <Animated.ScrollView
                     horizontal
@@ -323,13 +312,9 @@ export default class BookingScreen extends Component {
                                 <Text style={styles.textStyle}>X</Text>
                             </TouchableHighlight>
                             <BookingModal />
-
-
                         </View>
                     </View>
                 </Modal>
-
-
             </View>
         );
     }
@@ -401,9 +386,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     marker: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
         backgroundColor: "rgba(130,4,150, 0.9)",
     },
     ring: {

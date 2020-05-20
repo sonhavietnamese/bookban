@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-    TouchableHighlight,
     StyleSheet,
     Text,
     View,
@@ -11,13 +10,11 @@ import {
     TouchableOpacity,
 } from "react-native";
 
-import MapView from "react-native-maps";
-
 import Carousel from 'react-native-snap-carousel';
 
-import Header from "../../components/Header"
 import { BLACK, RED, YELLOW, WHITE, DARK_GREY, LIGHT_GREY } from '../../assets/colors'
-import { string } from "../../assets/strings"
+
+import TableStatus from "../restaurant/TableStatus"
 
 const { width, height } = Dimensions.get("window");
 
@@ -31,36 +28,56 @@ export default class BookingModal extends Component {
             activeIndex: 0,
             carouselItems: [
                 {
-                    img: require("../../assets/imgs/1.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
+                    img: require("../../assets/imgs/f1.jpg"),
+                    title: "Pizza phô mai",
+                    price: "200.000",
                 },
                 {
-                    img: require("../../assets/imgs/5.jpg"),
-                    title: "Pizaasd asd za",
-                    price: "12.000",
+                    img: require("../../assets/imgs/f2.jpg"),
+                    title: "Pizza gà",
+                    price: "150.000",
+                },
+                {
+                    img: require("../../assets/imgs/f3.jpg"),
+                    title: "Pizza bò",
+                    price: "120.000",
+                },
+                {
+                    img: require("../../assets/imgs/f4.jpg"),
+                    title: "Pizza bơ",
+                    price: "125.000",
+                },
+                {
+                    img: require("../../assets/imgs/f5.jpg"),
+                    title: "Pizza dâu",
+                    price: "120.000",
+                },
+
+            ],
+            carouselViews: [
+                {
+                    img: require("../../assets/imgs/1.jpg"),
+                },
+                {
+                    img: require("../../assets/imgs/2.jpg"),
                 },
                 {
                     img: require("../../assets/imgs/3.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
                 },
                 {
                     img: require("../../assets/imgs/4.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
                 },
                 {
                     img: require("../../assets/imgs/5.jpg"),
-                    title: "Pizza",
-                    price: "12.000",
+                },
+                {
+                    img: require("../../assets/imgs/6.jpg"),
                 },
             ],
-            time: ["12:00", "12:30", "14:00", "17:00", "24:00", "16:00"],
+            time: ["12:00", "12:30", "17:00", "19:00", "20:00"],
             timeSelected: 0
         }
     }
-
 
     _renderViews({ item, index }) {
         return (
@@ -80,9 +97,7 @@ export default class BookingModal extends Component {
                     }}
                     resizeMode="cover"
                 />
-
             </View>
-
         )
     }
 
@@ -106,7 +121,6 @@ export default class BookingModal extends Component {
                     <Text style={{ fontFamily: "MSB", fontSize: 12, marginTop: 5, color: WHITE }}>{item.price}</Text>
                     <Text style={{ fontFamily: "MSB", fontSize: 10, color: WHITE, marginBottom: 5 }}>VND</Text>
 
-
                     <View style={{
                         height: 57, width: 25,
                         backgroundColor: LIGHT_GREY,
@@ -123,19 +137,16 @@ export default class BookingModal extends Component {
                             <Text style={{ color: DARK_GREY, fontFamily: "MSB" }}>+</Text>
                         </TouchableOpacity>
 
-                        <Text style={{ color: BLACK, fontFamily: "MSB" }}>0</Text>
+                        <Text style={{ color: BLACK, fontFamily: "MSB" }}>1</Text>
 
                         <TouchableOpacity style={{ height: 17, width: 25, justifyContent: "center", alignItems: "center" }}>
                             <Text style={{ color: DARK_GREY, fontFamily: "MSB", marginBottom: 5 }}>-</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-
             </View>
-
         )
     }
-
 
     render() {
         const { timeSelected } = this.state
@@ -143,9 +154,8 @@ export default class BookingModal extends Component {
             <View style={{ flex: 1, backgroundColor: WHITE }}>
                 <Text style={{ marginLeft: 45, fontFamily: "MSB", fontSize: 27, marginTop: 45, color: YELLOW }}>Đặt bàn</Text>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={{ marginLeft: 45, fontFamily: "MSB", fontSize: 20 }}>Nhà hàng </Text>
-                    <Text style={{ fontFamily: "MSB", fontSize: 20, color: RED }}>Biển Lớn</Text>
-
+                    <Text style={{ marginLeft: 45, fontFamily: "MSB", fontSize: 20 }}></Text>
+                    <Text style={{ fontFamily: "MSB", fontSize: 20, color: RED }}>The Pizza</Text>
                 </View>
 
 
@@ -157,14 +167,14 @@ export default class BookingModal extends Component {
                     }}>
                         <View style={[styles.componentContainer, { marginLeft: 0, marginRight: 0 }]}>
                             <Text style={styles.component}>Trạng thái bàn</Text>
-                            <Text style={[styles.component, { fontFamily: "MR", fontSize: 12 }]}>còn 2 bàn trống</Text>
+                            <Text style={[styles.component, { fontFamily: "MR", fontSize: 12 }]}>còn 12 bàn trống</Text>
 
                         </View>
-                        <View style={{ width: "100%", height: 150, backgroundColor: "gray" }}></View>
+                        <View style={{ width: "100%", height: 15 }}></View>
+                        <TableStatus />
                         <Text style={[styles.component, { fontFamily: "MSB", fontSize: 12, color: DARK_GREY }]}>4 ghế / bàn</Text>
                         <Text style={[styles.component, { fontFamily: "MR", fontSize: 12 }]}>Bấm vào hình để chọn bàn</Text>
                     </View>
-
 
                     <View style={{
                         marginLeft: 60,
@@ -215,15 +225,13 @@ export default class BookingModal extends Component {
                             <Carousel
                                 layout={"tinder"}
                                 ref={ref => this.carousel = ref}
-                                data={this.state.carouselItems}
+                                data={this.state.carouselViews}
                                 sliderWidth={Dimensions.get("window").width - 120}
                                 itemWidth={Dimensions.get("window").width - 120}
                                 renderItem={this._renderViews}
                                 onSnapToItem={index => this.setState({ activeIndex: index })} />
                         </View>
-
                     </View>
-
 
                     <View style={{
                         marginLeft: 60,
@@ -244,15 +252,9 @@ export default class BookingModal extends Component {
                                 renderItem={this._renderMenu}
                                 onSnapToItem={index => this.setState({ activeIndex: index })}
                                 style={{ marginRight: 25 }}
-
                             />
                         </View>
-
                     </View>
-
-
-
-
 
                     <TouchableOpacity
                         style={{
@@ -269,10 +271,7 @@ export default class BookingModal extends Component {
                     >
                         <Text style={{ fontFamily: "MSB", color: WHITE, fontSize: 20 }}>Đặt ngay</Text>
                     </TouchableOpacity>
-
                 </ScrollView>
-
-
             </View>
         );
     }
