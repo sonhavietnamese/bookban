@@ -1,19 +1,25 @@
 import React, { Component } from "react";
 import {
-    AppRegistry,
+    TouchableHighlight,
     StyleSheet,
     Text,
     View,
-    ScrollView,
+    TextInput,
     Animated,
     Image,
     Dimensions,
     TouchableOpacity,
+    Modal,
+
 } from "react-native";
 
 import MapView from "react-native-maps";
 
 import Carousel from 'react-native-snap-carousel';
+import BookingModal from "./BookingModal"
+import { WHITE, RED, LIGHT_GREY, DARK_GREY, YELLOW } from "../../assets/colors";
+
+import staticData from "./staticData";
 
 const Images = [
     { uri: "https://i.imgur.com/sNam9iJ.jpg" },
@@ -37,7 +43,7 @@ export default class BookingScreen extends Component {
                 },
                 title: "Best Place",
                 text: "This is the best place in Portland",
-                image: Images[0],
+                image: require("../../assets/imgs/f1.jpg"),
             },
             {
                 coordinate: {
@@ -70,32 +76,13 @@ export default class BookingScreen extends Component {
         region: {
             latitude: 45.52220671242907,
             longitude: -122.6653281029795,
-            latitudeDelta: 0.04864195044303443,
-            longitudeDelta: 0.040142817690068,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
         },
-        // carouselItems: [
-        //     {
-        //         title: "Item 1",
-        //         text: "Text 1",
-        //     },
-        //     {
-        //         title: "Item 2",
-        //         text: "Text 2",
-        //     },
-        //     {
-        //         title: "Item 3",
-        //         text: "Text 3",
-        //     },
-        //     {
-        //         title: "Item 4",
-        //         text: "Text 4",
-        //     },
-        //     {
-        //         title: "Item 5",
-        //         text: "Text 5",
-        //     },
-        // ],
         activeIndex: 0,
+        modalVisible: false,
+        search: "",
+
     };
 
     UNSAFE_componentWillMount() {
@@ -103,10 +90,8 @@ export default class BookingScreen extends Component {
         this.animation = new Animated.Value(0);
     }
     componentDidMount() {
-        // We should detect when scrolling has stopped then animate
-        // We should just debounce the event listener here
         this.animation.addListener(({ value }) => {
-            let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+            let index = Math.floor(value / CARD_WIDTH + 0.3);
             if (index >= this.state.markers.length) {
                 index = this.state.markers.length - 1;
             }
@@ -135,18 +120,26 @@ export default class BookingScreen extends Component {
     _renderItem({ item, index }) {
         return (
             <View style={{
-                backgroundColor: 'floralwhite',
+                backgroundColor: 'blue',
                 borderRadius: 5,
                 height: 250,
                 padding: 50,
                 marginLeft: 25,
                 marginRight: 25,
+                position: "absolute"
             }}>
                 <Text style={{ fontSize: 30 }}>{item.title}</Text>
                 <Text>{item.text}</Text>
             </View>)
     }
+    setModalVisible = (visible) => {
+        this.setState({ modalVisible: visible });
+    }
+
+
+
     render() {
+        const { modalVisible } = this.state;
         const interpolations = this.state.markers.map((marker, index) => {
             const inputRange = [
                 (index - 1) * CARD_WIDTH,
@@ -166,41 +159,93 @@ export default class BookingScreen extends Component {
             return { scale, opacity };
         });
 
+
+
         return (
             <View style={styles.container}>
-                <MapView
-                    ref={map => this.map = map}
-                    initialRegion={this.state.region}
-                    style={{ width: 300, height: 500 }}
-                >
-                    {this.state.markers.map((marker, index) => {
-                        const scaleStyle = {
-                            transform: [
-                                {
-                                    scale: interpolations[index].scale,
-                                },
-                            ],
-                        };
-                        const opacityStyle = {
-                            opacity: interpolations[index].opacity,
-                        };
-                        return (
-                            <MapView.Marker key={index} coordinate={marker.coordinate}>
-                                <Animated.View style={[styles.markerWrap, opacityStyle]}>
-                                    <Animated.View style={[styles.ring, scaleStyle]} />
-                                    <View style={styles.marker} />
-                                </Animated.View>
-                            </MapView.Marker>
-                        );
-                    })}
-                </MapView>
+
+                <View style={{
+                    position: "absolute",
+                    zIndex: 0,
+                    backgroundColor: LIGHT_GREY,
+                    width: 500,
+                    height: 500,
+                    borderRadius: 250,
+                    right: -250,
+                    top: -250
+                }} />
+
+                <View style={{ height: 80, width: Dimensions.get("window").width, marginTop: 10 }}>
+                    <View style={{
+                        marginLeft: 25, marginRight: 25,
+                        height: 50,
+                        marginTop: 20, flexDirection: "row",
+                        borderRadius: 10, borderColor: DARK_GREY,
+                        borderWidth: 0.5,
+                        alignItems: "center"
+                    }}>
+                        <View style={{
+                            width: 30,
+                            height: 30,
+                            backgroundColor: RED,
+                            justifyContent: 'center',
+                            alignItems: "center",
+                            borderRadius: 8,
+                            marginLeft: 10
+                        }}>
+                            <Image
+                                source={require("../../assets/imgs/search.png")}
+                                style={{ width: 20, height: 20 }}
+                            />
+                        </View>
+
+                        <Text style={{
+                            fontFamily: "MR",
+                            fontSize: 14,
+                            color: DARK_GREY,
+                            marginLeft: 10
+                        }}>Tìm nhà hàng</Text>
+
+                    </View>
+                </View>
+
+
+                <View style={{ width: Dimensions.get("window").width - 55, height: Dimensions.get("window").height - 80, marginTop: 10 }}>
+                    <MapView
+                        ref={map => this.map = map}
+                        initialRegion={this.state.region}
+                        style={{ width: Dimensions.get("window").width - 55, height: Dimensions.get("window").width - 55, borderRadius: 20 }}
+                    >
+                        {this.state.markers.map((marker, index) => {
+                            const scaleStyle = {
+                                transform: [
+                                    {
+                                        scale: interpolations[index].scale,
+                                    },
+                                ],
+                            };
+                            const opacityStyle = {
+                                opacity: interpolations[index].opacity,
+                            };
+                            return (
+                                <MapView.Marker key={index} coordinate={marker.coordinate}>
+                                    <Animated.View style={[styles.markerWrap, opacityStyle]}>
+                                        <Animated.View style={[styles.ring, scaleStyle]} />
+                                        <View style={styles.marker} />
+                                    </Animated.View>
+                                </MapView.Marker>
+                            );
+                        })}
+                    </MapView>
+                </View>
+
 
 
                 <Animated.ScrollView
                     horizontal
                     scrollEventThrottle={1}
                     showsHorizontalScrollIndicator={false}
-                    snapToInterval={CARD_WIDTH}
+                    snapToInterval={CARD_WIDTH + 60}
                     onScroll={Animated.event(
                         [
                             {
@@ -217,7 +262,9 @@ export default class BookingScreen extends Component {
                     contentContainerStyle={styles.endPadding}
                 >
                     {this.state.markers.map((marker, index) => (
-                        <View style={styles.card} key={index}>
+                        <View style={styles.card} key={index} onPress={() => {
+                            this.setModalVisible(true);
+                        }}>
                             <Image
                                 source={marker.image}
                                 style={styles.cardImage}
@@ -225,34 +272,72 @@ export default class BookingScreen extends Component {
                             />
                             <View style={styles.textContent}>
                                 <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                                <Text numberOfLines={1} style={styles.cardDescription}>
-                                    {marker.description}
+                                <Text style={styles.cardDescription}>
+                                    {marker.text}
                                 </Text>
+                                <TouchableOpacity
+                                    style={{
+                                        width: 80, height: 30,
+                                        backgroundColor: YELLOW,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        borderRadius: 15,
+                                        right: 15,
+                                        bottom: 15,
+                                        position: "absolute"
+                                    }}
+                                    onPress={() => this.setModalVisible(true)}
+                                >
+                                    <Text style={{ fontFamily: "MR", color: WHITE, fontSize: 13 }}>Đặt bàn</Text>
+                                </TouchableOpacity>
                             </View>
+
                         </View>
                     ))}
                 </Animated.ScrollView>
 
-                {/* <View>
-                    <Carousel
-                        style={styles.scrollView}
-                        layout={"default"}
-                        ref={ref => this.carousel = ref}
-                        data={this.state.markers}
-                        sliderWidth={300}
-                        itemWidth={300}
-                        renderItem={this._renderItem}
-                        onSnapToItem={index => this.setState({ activeIndex: index })} />
-                </View> */}
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+
+                >
+                    <View style={{ flex: 1 }}>
+                        <View style={{ flex: 1 }}>
+
+                            <TouchableHighlight
+                                style={{
+                                    width: 30, height: 30,
+                                    backgroundColor: DARK_GREY,
+                                    justifyContent: "center",
+                                    alignItems: "center", borderRadius: 15,
+                                    position: "absolute",
+                                    right: 15,
+                                    top: 15,
+                                    zIndex: 2
+                                }}
+                                onPress={() => {
+                                    this.setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <Text style={styles.textStyle}>X</Text>
+                            </TouchableHighlight>
+                            <BookingModal />
+
+
+                        </View>
+                    </View>
+                </Modal>
+
 
             </View>
         );
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: "center"
     },
     scrollView: {
         position: "absolute",
@@ -265,35 +350,51 @@ const styles = StyleSheet.create({
         paddingRight: width - CARD_WIDTH,
     },
     card: {
-        padding: 10,
-        elevation: 2,
-        backgroundColor: "#FFF",
+        flexDirection: "row",
         marginHorizontal: 10,
-        shadowColor: "#000",
-        shadowRadius: 5,
-        shadowOpacity: 0.3,
-        shadowOffset: { x: 2, y: -2 },
+        marginBottom: 20,
         height: CARD_HEIGHT,
-        width: CARD_WIDTH,
+        width: CARD_WIDTH + 40,
         overflow: "hidden",
+        alignItems: "center"
     },
     cardImage: {
-        flex: 2,
+        flex: 1,
         width: "100%",
         height: "100%",
-        alignSelf: "center",
+        borderRadius: 10
     },
     textContent: {
         flex: 1,
+        height: "80%",
+        width: "80%",
+        backgroundColor: "#fcfcfc",
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+
+        elevation: 7,
     },
     cardtitle: {
-        fontSize: 12,
+        fontSize: 14,
         marginTop: 5,
-        fontWeight: "bold",
+        fontFamily: "MSB",
+        marginLeft: 10,
+        marginRight: 10
     },
     cardDescription: {
         fontSize: 12,
-        color: "#444",
+        color: DARK_GREY,
+        fontFamily: "MR",
+        marginLeft: 10,
+        marginRight: 10
+
     },
     markerWrap: {
         alignItems: "center",
@@ -306,12 +407,40 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(130,4,150, 0.9)",
     },
     ring: {
-        width: 24,
-        height: 24,
-        borderRadius: 12,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
         backgroundColor: "rgba(130,4,150, 0.3)",
         position: "absolute",
         borderWidth: 1,
         borderColor: "rgba(130,4,150, 0.5)",
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+    },
+    openButton: {
+        backgroundColor: "#F194FF",
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    textStyle: {
+        color: WHITE,
+        fontFamily: "MR",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
 });

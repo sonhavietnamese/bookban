@@ -12,6 +12,7 @@ import { BLACK, RED, YELLOW, WHITE, DARK_GREY, LIGHT_GREY } from '../../assets/c
 import { string } from "../../assets/strings"
 import BottomTab from "../../components/BottomTab"
 import BookingScreen from "./BookingScreen"
+import ExploreScreen from "./ExploreScreen"
 
 class Home extends Component {
     constructor(props) {
@@ -32,33 +33,30 @@ class Home extends Component {
         return (
             <View style={{ flex: 1, backgroundColor: WHITE, }}>
 
-                <BottomTab bgNavBar={WHITE} bgNavBarSelector={RED} stroke={YELLOW}>
+                <View style={{ width: 30, height: 30, backgroundColor: YELLOW, position: "absolute", bottom: 0, left: 0 }} />
+                <View style={{ width: 30, height: 30, backgroundColor: YELLOW, position: "absolute", bottom: 0, right: 0 }} />
+
+                <BottomTab bgNavBar={YELLOW} bgNavBarSelector={RED} stroke={YELLOW}>
                     <BottomTab.Item
                         icon={require("../../assets/imgs/tab1.png")}
                         selectedIcon={require("../../assets/imgs/tab1.png")}
                         title="Tab1"
-                        screenBackgroundColor={{ backgroundColor: WHITE }
-                        }
                     >
-                        <BookingScreen />
-                        {/* <Mapppp /> */}
+
+                        <ExploreScreen />
 
                     </BottomTab.Item >
                     <BottomTab.Item
                         icon={require("../../assets/imgs/tab2.png")}
                         selectedIcon={require("../../assets/imgs/tab2.png")}
                         title="Tab2"
-                    // screenBackgroundColor={{ backgroundColor: '#F08080' }}
                     >
-                        <View>
-                            <Text>NGUYENSONHA</Text>
-                        </View>
+                        <BookingScreen />
                     </BottomTab.Item>
                     <BottomTab.Item
                         icon={require("../../assets/imgs/tab2.png")}
                         selectedIcon={require("../../assets/imgs/tab2.png")}
                         title="Tab3"
-                        screenBackgroundColor={{ backgroundColor: WHITE }}
                     >
                         <View>
                             {/*Page Content*/}

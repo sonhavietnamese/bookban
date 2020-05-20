@@ -202,16 +202,16 @@ const styles = StyleSheet.create({
     navItem: {
         flex: 1,
         paddingTop: 6,
-        paddingBottom: 6,
+        paddingBottom: 16,
         alignItems: 'center',
         zIndex: 0,
     },
     navImage: {
-        width: 30,
-        height: 30,
+        width: 25,
+        height: 25,
     },
     circle: {
-        bottom: 25,
+        bottom: 18,
     },
 });
 

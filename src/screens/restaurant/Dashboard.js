@@ -78,7 +78,15 @@ class Dashboard extends Component {
                                 labels: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
                                 datasets: [
                                     {
-                                        data: data,
+                                        data: [
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100
+                                        ],
                                         color: (opacity = 1) => `rgba(227, 0, 26, ${opacity})`,
                                     },
                                     {
@@ -115,7 +123,15 @@ class Dashboard extends Component {
                                 labels: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
                                 datasets: [
                                     {
-                                        data: data,
+                                        data: [
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100,
+                                            Math.random() * 100
+                                        ],
                                         color: (opacity = 1) => `rgba(227, 0, 26, ${opacity})`,
                                     },
                                     {

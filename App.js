@@ -25,10 +25,10 @@ class App extends Component {
 		this.localNotify = null
 	}
 
-	async componentDidMount() {
-		this.localNotify = notificationManager
-		this.localNotify.configure()
-	}
+	// async componentDidMount() {
+	// 	this.localNotify = notificationManager
+	// 	this.localNotify.configure()
+	// }
 
 	onPressSendNotification = () => {
 		this.localNotify.showNotification(
